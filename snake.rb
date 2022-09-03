@@ -23,10 +23,12 @@ class Snake
         #removes the first element of positions array
         @positions.shift
         case @direction
-        when 'down'
-            @positions.push([head[0],head[1] + 1])
-        end
-    end
+    #     when 'down'
+    #         @positions.push([head[0],head[1] + 1])
+    #     when 'up'
+    #         @positions.push([head[0],head[1] - 1])
+    #     end
+    # end
 
     def head
         @positions.last
@@ -43,5 +45,11 @@ update do
     clear
     snake.move
     snake.draw
+end
+
+on :key_down do |event|
+    if ['up','down','left','right'].include?(event.key)
+    snake.direction = event.key
+    end
 end
 show
