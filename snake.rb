@@ -1,6 +1,6 @@
 require 'ruby2d'
 set background: 'navy'
-set fps_cap:1
+set fps_cap:20
 
 #width = 640/20 = 32
 #height = 480/20 = 20
@@ -8,6 +8,7 @@ set fps_cap:1
 GRID_SIZE = 20
 
 class Snake
+    attr_writer :direction
     def initialize
         @positions = [[2,0],[2,1],[2,2],[2,3]]
         @direction = 'down'
@@ -23,12 +24,18 @@ class Snake
         #removes the first element of positions array
         @positions.shift
         case @direction
-    #     when 'down'
-    #         @positions.push([head[0],head[1] + 1])
-    #     when 'up'
-    #         @positions.push([head[0],head[1] - 1])
-    #     end
-    # end
+        when 'down'
+            @positions.push([head[0],head[1] + 1])
+        when 'up'
+            @positions.push([head[0],head[1] - 1])
+        when 'left'
+            @positions.push([head[0] - 1, head[1]])
+        when 'right'
+            @positions.push([head[0]+1, head[1]])
+        end
+    end
+
+    private
 
     def head
         @positions.last
@@ -48,8 +55,11 @@ update do
 end
 
 on :key_down do |event|
-    if ['up','down','left','right'].include?(event.key)
-    snake.direction = event.key
+    if['up','down','left','right'].include?(event.key)
+        snake.direction=event.key
     end
+    # if ['up','down','left','right'].include?(event.key)
+    #     snake.direction = event.key
+    # end
 end
 show
