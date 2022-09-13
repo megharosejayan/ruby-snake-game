@@ -8,7 +8,7 @@ set fps_cap:20
 GRID_SIZE = 20
 
 class Snake
-    attr_writer :direction
+    attr_writer :directions
     def initialize
         @positions = [[2,0],[2,1],[2,2],[2,3]]
         @direction = 'down'
@@ -39,7 +39,7 @@ class Snake
 
     def head
         @positions.last
-    end
+    end   
 
 end
 
@@ -55,11 +55,10 @@ update do
 end
 
 on :key_down do |event|
-    if['up','down','left','right'].include?(event.key)
-        snake.direction=event.key
+    #puts event.key
+    if ['up','down','left','right'].include?(event.key)
+        snake.direction = event.key
     end
-    # if ['up','down','left','right'].include?(event.key)
-    #     snake.direction = event.key
-    # end
 end
+
 show
